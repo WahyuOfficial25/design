@@ -800,7 +800,7 @@ if ( typeof Object.create !== 'function' ) {
     	goToFirstSpeed : 1000,
 
     	navigation : false,
-    	navigationText : ["<i class='fa fa-angle-left' aria-hidden='true'></i>","<i class='fa fa-angle-right' aria-hidden='true'></i>"],
+    	navigationText : ["‹","›"],
     	pagination : true,
     	paginationNumbers: false,
 
