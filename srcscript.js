@@ -25,7 +25,3 @@ function recentPosts(e){if(document.getElementById("recent-posts")){for(var t,s,
 $(document).ready(function(){$(".btn-safe").click(function(){input.value.length&&$("#blantersafelink,.matilampu").toggleClass("aktif")})});
 var titlerecentpost = document.getElementById("xtitlex");
 titlerecentpost.innerHTML='<div class="recenthd"><h2>Recent Post</h2><a class="gorecent" href="'+recentpost_url+'" title="Recent Post" target="_blank">View More</a></div>';
-$(document).ready(function(){$(&quot;.close-sf&quot;).click(function(){$(&quot;.blanternotif,#blantersafelink,.matilampu,.suksescopy&quot;).removeClass(&quot;aktif&quot;)})});
-$(document).ready(function(){$(&quot;#btnCopy&quot;).click(function(){$(&quot;.suksescopy&quot;).toggleClass(&quot;aktif&quot;)})});
-$(document).ready(function(){$(&quot;.btn-pass&quot;).click(function(){$(&quot;.input-pass&quot;).slideToggle(&quot;fast&quot;)})});
-$(document).ready(function(){$(&quot;.notifhtu&quot;).click(function(){$(&quot;.blanternotif,.matilampu&quot;).toggleClass(&quot;aktif&quot;)})});
