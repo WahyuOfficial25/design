@@ -1,0 +1,139 @@
+! function(e, t) {
+	e.InfiniteScroll = function(n) {
+		function r(e, n) {
+			return (n = n || t).querySelectorAll(e)
+		}
+
+		function o(e) {
+			return void 0 !== e
+		}
+
+		function a(e) {
+			return "function" == typeof e
+		}
+
+		function s(e, t) {
+			e = e || {};
+			for (var n in t) e[n] = "object" == typeof t[n] ? s(e[n], t[n]) : t[n];
+			return e
+		}
+
+		function i(e, t, n) {
+			return o(e) ? o(t) ? void(o(n) ? u[e][n] = t : u[e].push(t)) : u[e] : u
+		}
+
+		function l(e, t) {
+			o(t) ? delete u[e][t] : u[e] = []
+		}
+
+		function d(e, t) {
+			if (o(u[e]))
+				for (var n in u[e]) u[e][n](t)
+		}
+
+		function c() {
+			return H.innerHTML = p.text.loading, L = !0, M ? (j.classList.add(p.state.loading), d("loading", [p]), void h(M, function(e, n) {
+				j.className = m + " " + p.state.load, (g = t.createElement("div")).innerHTML = e;
+				var o = r("title", g),
+					a = r(p.target.post, g),
+					s = r(p.target.anchors + " " + p.target.anchor, g),
+					i = r(p.target.post, T);
+				if (o = o && o[0] ? o[0].innerHTML : "", a.length && i.length) {
+					var l = i[i.length - 1];
+					t.title = o, l.insertAdjacentHTML("afterend", '<span class="fi" id="#fi:' + A + '"></span>'), g = t.createElement("div");
+					for (var c = 0, u = a.length; u > c; ++c) g.appendChild(a[c]);
+					l.insertAdjacentHTML("afterend", g.innerHTML), f(), M = !!s.length && s[0].href, L = !1, A++, d("load", [p, e, n])
+				}
+			}, function(e, t) {
+				j.classList.add(p.state.error), L = !1, f(1), d("error", [p, e, t])
+			})) : (j.classList.add(p.state.loaded), H.innerHTML = p.text.loaded, d("loaded", [p]))
+		}
+
+		function f(e) {
+			if (H.innerHTML = "", v) {
+				g.innerHTML = p.text[e ? "error" : "load"];
+				var t = g.firstChild;
+				t.onclick = function() {
+					return 2 === p.type && (v = !1), c(), !1
+				}, H.appendChild(t)
+			}
+		}
+		var p = {
+				target: {
+					posts: ".posts",
+					post: ".post",
+					anchors: ".anchors",
+					anchor: ".anchor"
+				},
+				text: {
+					load: "%s",
+					loading: "%s",
+					loaded: "%s",
+					error: "%s"
+				},
+				state: {
+					load: (h = "infinite-scroll-state-") + "load",
+					loading: h + "loading",
+					loaded: h + "loaded",
+					error: h + "error"
+				}
+			},
+			u = {
+				load: [],
+				loading: [],
+				loaded: [],
+				error: []
+			};
+		(p = s(p, n || {})).on = i, p.off = l;
+		var g = null,
+			h = function(t, n, r) {
+				if (e.XMLHttpRequest) {
+					var o = new XMLHttpRequest;
+					o.onreadystatechange = function() {
+						if (4 === o.readyState) {
+							if (200 !== o.status) return void(r && a(r) && r(o.responseText, o));
+							n && a(n) && n(o.responseText, o)
+						}
+					}, o.open("GET", t), o.send()
+				}
+			},
+			v = 1 !== p.type,
+			L = !1,
+			T = r(p.target.posts)[0],
+			H = r(p.target.anchors)[0],
+			M = r(p.target.anchor, H),
+			y = t.body,
+			j = t.documentElement,
+			m = j.className || "",
+			w = T.offsetTop + T.offsetHeight,
+			x = e.innerHeight,
+			E = 0,
+			b = null,
+			A = 1;
+		if (M.length) {
+			M = M[0].href, T.insertAdjacentHTML("afterbegin", '<span class="fi" id="#fi:0"></span>'), g = t.createElement("div"), f();
+			var S = function() {
+				w = T.offsetTop + T.offsetHeight, x = e.innerHeight, E = y.scrollTop || j.scrollTop, L || w > E + x || c()
+			};
+			S(), 0 !== p.type && e.addEventListener("scroll", function() {
+				v || (b && e.clearTimeout(b), b = e.setTimeout(S, 500))
+			}, !1)
+		}
+		return p
+	}
+}(window, document);
+var infinite_scroll = new InfiniteScroll({
+	type: 0,
+	target: {
+		posts: ".blog-posts",
+		post: ".date-outer",
+		anchors: ".blog-pager",
+		anchor: ".blog-pager-older-link"
+	},
+	text: {
+		load: '<a class="js-load" href="javascript:;">Load More</a>',
+		loading: '<span class="js-loading" style="cursor:wait;">Loading...</span>',
+		loaded: '<span class="js-loaded">All Post Show</span>',
+		error: '<a class="js-error" href="javascript:;">Error Loading Feed</a>'
+	}
+});
