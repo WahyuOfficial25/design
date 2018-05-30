@@ -1,0 +1,1 @@
+(navigator.userAgent.indexOf('Google Page Speed Insights') == -1)&&(window.addEventListener?window.addEventListener("load",run,!1):window.attachEvent?window.attachEvent("onload",run):window.onload=run);
